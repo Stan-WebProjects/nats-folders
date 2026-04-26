@@ -72,8 +72,7 @@
 
 html {
   background: var(--bg);
-  height: 100%;
-  overflow: hidden; /* no page-level scroll — content fits the viewport */
+  min-height: 100%;
 }
 
 body {
@@ -85,8 +84,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   position: relative;
   padding-top: 48px; /* room for fixed NATS brand-bar */
   /* Subtle accent gradient blobs — Apple-style atmospheric tint */
@@ -249,8 +247,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
   flex-direction: row-reverse;
   gap: 28px;
   align-items: stretch;
-  /* Fill the viewport exactly — brand-bar + masthead + app = 100vh, no scroll */
-  height: calc(100vh - 48px - var(--masthead-h, 60px));
+  /* Let height grow with content; page scrolls naturally if needed */
   min-height: 0;
 }
 
