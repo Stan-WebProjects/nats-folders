@@ -1262,17 +1262,17 @@ body.eyedropper-mode, body.eyedropper-mode * {
     </div>
     <!-- Image Upload Card (below preview — input sits close to output) -->
     <div class="card">
-      <div class="card-title">导入图片</div>
-      <div class="upload-zone" id="uploadZone">点击上传图片，或 Cmd+V 粘贴</div>
+      <div class="card-title">Afbeelding</div>
+      <div class="upload-zone" id="uploadZone">Klik om te uploaden, of plak met Cmd+V</div>
       <input type="file" id="fileInput" accept="image/*">
     </div>
 
     <!-- Export Card (below preview) -->
     <div class="card">
-      <div class="card-title">导出</div>
+      <div class="card-title">Exporteer</div>
       <div class="export-row">
-        <button class="btn btn-primary" id="copyBtn">复制到剪贴板</button>
-        <button class="btn btn-secondary" id="downloadBtn">下载 PNG</button>
+        <button class="btn btn-primary" id="copyBtn">Kopieer naar klembord</button>
+        <button class="btn btn-secondary" id="downloadBtn">Download PNG</button>
       </div>
     </div>
   </div>
@@ -3525,7 +3525,7 @@ downloadBtn.addEventListener('click', async function() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast('已下载 PNG');
+    showToast('PNG gedownload');
   }, 'image/png');
 });
 
@@ -3536,12 +3536,12 @@ copyBtn.addEventListener('click', async function() {
       navigator.clipboard.write([
         new ClipboardItem({ 'image/png': blob })
       ]).then(() => {
-        showToast('已复制到剪贴板');
+        showToast('Gekopieerd naar klembord');
       }).catch(() => {
-        showToast('复制失败，请重试');
+        showToast('Kopiëren mislukt, probeer opnieuw');
       });
     } else {
-      showToast('浏览器不支持复制图片');
+      showToast('Browser ondersteunt geen afbeeldingen kopiëren');
     }
   }, 'image/png');
 });
