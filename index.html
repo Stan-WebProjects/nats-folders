@@ -12,91 +12,111 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  /* ── Editorial palette — warm paper, ink, single sienna accent ── */
-  --paper:       #EFE8D8;  /* page background — aged paper */
-  --paper-deep:  #E6DDC8;  /* slight tint variant for texture wells */
-  --surface:     #FAF5E7;  /* card surface — lighter cream */
-  --ink:         #1C1813;  /* body ink */
-  --ink-2:       #5A5448;  /* secondary */
-  --ink-3:       #9A917C;  /* meta / captions */
-  --rule:        #CEC4AC;  /* hairline */
-  --rule-strong: #9A917C;  /* emphasis rule */
-  --accent:      #8F2A18;  /* burnt sienna */
-  --accent-2:    #D4521F;  /* brighter siena for hover glow */
-  --accent-wash: rgba(143, 42, 24, 0.07);
-  --accent-wash-2: rgba(143, 42, 24, 0.14);
+  /* ── Typography — system stack, Apple HIG ── */
+  --font-text:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
 
-  /* ── Legacy aliases — kept so existing JS/CSS that references them still works ── */
-  --bg: var(--paper);
-  --card: var(--surface);
-  --text: var(--ink);
-  --text2: var(--ink-2);
-  --border: var(--rule);
-  --radius: 0px;
+  /* ── Radii ── */
+  --radius:    12px;
+  --radius-sm:  8px;
+  --radius-lg: 18px;
 
-  /* ── Typography ── */
-  --font-display: 'Instrument Serif', 'Songti SC', 'STSong', 'Times New Roman', serif;
-  --font-body:    'Hanken Grotesk', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', -apple-system, 'Helvetica Neue', sans-serif;
-  --font-mono:    'JetBrains Mono', 'SF Mono', 'Menlo', monospace;
+  /* ── Light palette (Apple HIG) ── */
+  --bg:               #f5f5f7;
+  --bg-elev:          rgba(255, 255, 255, 0.72);
+  --bg-elev-strong:   rgba(255, 255, 255, 0.92);
+  --border:           rgba(0, 0, 0, 0.08);
+  --border-strong:    rgba(0, 0, 0, 0.14);
+  --text:             #1d1d1f;
+  --text-secondary:   #6e6e73;
+  --accent:           #0071e3;
+  --accent-hover:     #0077ed;
+  --accent-wash:      rgba(0, 113, 227, 0.08);
+  --accent-wash-2:    rgba(0, 113, 227, 0.15);
+  --shadow:           0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  --shadow-sm:        0 1px 2px rgba(0,0,0,.04);
+
+  /* ── Legacy aliases — keep references in existing CSS working against the new palette ── */
+  --paper:        var(--bg);
+  --paper-deep:   #ececef;
+  --surface:      var(--bg-elev);
+  --ink:          var(--text);
+  --ink-2:        var(--text-secondary);
+  --ink-3:        rgba(0, 0, 0, 0.42);
+  --rule:         var(--border);
+  --rule-strong:  var(--border-strong);
+  --accent-2:     var(--accent-hover);
+  --font-body:    var(--font-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:             #1a1a1c;
+    --bg-elev:        rgba(36, 36, 38, 0.72);
+    --bg-elev-strong: rgba(44, 44, 46, 0.92);
+    --border:         rgba(255, 255, 255, 0.10);
+    --border-strong:  rgba(255, 255, 255, 0.18);
+    --text:           #f5f5f7;
+    --text-secondary: #a1a1a6;
+    --accent:         #0a84ff;
+    --accent-hover:   #409cff;
+    --accent-wash:    rgba(10, 132, 255, 0.12);
+    --accent-wash-2:  rgba(10, 132, 255, 0.22);
+    --shadow:         0 1px 2px rgba(0,0,0,.20), 0 8px 24px rgba(0,0,0,.32);
+    --shadow-sm:      0 1px 2px rgba(0,0,0,.20);
+    --paper-deep:     #242427;
+    --ink-3:          rgba(255, 255, 255, 0.42);
+  }
 }
 
 html {
-  background: var(--paper);
+  background: var(--bg);
   height: 100%;
   overflow: hidden; /* no page-level scroll — content fits the viewport */
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-text);
   font-weight: 400;
-  background: var(--paper);
-  color: var(--ink);
-  line-height: 1.55;
+  letter-spacing: -0.01em;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
   overflow: hidden;
   position: relative;
-  /* Warm atmospheric gradient wells — soft colored "light" on paper */
+  /* Subtle accent gradient blobs — Apple-style atmospheric tint */
   background-image:
-    radial-gradient(ellipse 60% 40% at 12% 0%,  rgba(143, 42, 24, 0.06), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 90% 100%, rgba(28, 24, 19, 0.05), transparent 75%);
+    radial-gradient(ellipse 60% 40% at 12% 0%,  var(--accent-wash), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 90% 100%, rgba(120, 70, 200, 0.06), transparent 75%);
   background-attachment: fixed;
 }
 
-/* Fine grain / paper noise overlay — adds texture, no performance cost */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.17  0 0 0 0 0.14  0 0 0 0 0.10  0 0 0 0.11 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-}
-
-/* All actual content sits above the noise layer */
 header, .app, .toast, .loupe, .header-links { position: relative; z-index: 1; }
 
 body.eyedropper-mode, body.eyedropper-mode * {
   cursor: crosshair !important;
 }
 
-/* ── Selection ── */
-::selection { background: var(--accent); color: var(--surface); }
+::selection { background: var(--accent-wash-2); color: var(--text); }
 
-/* ── Scrollbars (applied globally; re-themed to match paper palette) ── */
-* { scrollbar-width: thin; scrollbar-color: var(--rule-strong) transparent; }
+/* ── Mac-style scrollbars ── */
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-track { background: transparent; }
 *::-webkit-scrollbar-thumb {
-  background: var(--rule);
+  background: var(--border-strong);
   border: 2px solid transparent;
   background-clip: padding-box;
   border-radius: 10px;
 }
-*::-webkit-scrollbar-thumb:hover { background: var(--rule-strong); background-clip: padding-box; border: 2px solid transparent; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.28); background-clip: padding-box; border: 2px solid transparent; }
+@media (prefers-color-scheme: dark) {
+  *::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.32); background-clip: padding-box; border: 2px solid transparent; }
+}
 
 /* ── Header external links (GitHub / X) ── */
 /* Inline chips that sit in the masthead-meta bar on the right,
