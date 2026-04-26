@@ -192,27 +192,14 @@ body.eyedropper-mode, body.eyedropper-mode * {
   --preview-size: min(560px, calc(100vh - 260px));
   width: var(--preview-size);
   height: var(--preview-size);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   background:
-    repeating-conic-gradient(rgba(28,24,19,0.045) 0% 25%, transparent 0% 50%) 0 0 / 22px 22px,
-    linear-gradient(180deg, #FBF7EC, #F5EEDD);
+    repeating-conic-gradient(var(--border) 0% 25%, transparent 0% 50%) 0 0 / 22px 22px,
+    var(--bg-elev-strong);
   position: relative;
   overflow: hidden;
-  border: 1px solid var(--rule);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.6) inset,
-    0 30px 60px -30px rgba(28, 24, 19, 0.35),
-    0 2px 10px -4px rgba(28, 24, 19, 0.15);
-}
-
-/* Inner frame — a subtle "passepartout" feel like a framed print */
-.preview-wrap::after {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border: 1px solid rgba(28, 24, 19, 0.08);
-  pointer-events: none;
-  z-index: 8;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
 }
 
 .preview-wrap > svg {
@@ -358,47 +345,34 @@ body.eyedropper-mode, body.eyedropper-mode * {
 }
 
 .card {
-  background: var(--surface);
+  background: var(--bg-elev);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
   border-radius: var(--radius);
   padding: 14px 18px 16px;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--border);
   position: relative;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
-.card:hover { border-color: var(--rule-strong); }
+.card:hover { border-color: var(--border-strong); }
 .card:focus-within {
-  border-color: var(--ink);
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-wash);
 }
 
-/* Card titles — editorial: serif-italic mark + sans label + mono number on right */
+/* Card titles — sentence-case, system, Apple-HIG */
 .card-title {
-  font-family: var(--font-body);
-  font-size: 11px;
+  font-family: var(--font-text);
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  text-transform: none;
   margin-bottom: 10px;
-  color: var(--ink);
+  color: var(--text);
   display: flex;
   align-items: center;
   gap: 10px;
-}
-/* Small sienna diamond marker as the title's "drop cap" */
-.card-title::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  transform: rotate(45deg);
-  flex-shrink: 0;
-}
-/* Trailing hairline fills to the right edge of the card */
-.card-title::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--rule);
 }
 /* Title row with an inline control (e.g. Met-bestanden-stijl toggle) on the right */
 .card-title-row {
@@ -406,20 +380,11 @@ body.eyedropper-mode, body.eyedropper-mode * {
   align-items: center;
   gap: 10px;
 }
-/* When the title row has a trailing control (toggle), suppress the
-   auto-filling rule since the control should flow at the end. */
-.card-title.card-title-row::after { display: none; }
 .card-title.card-title-row > span:first-child {
   flex: 1;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-}
-.card-title.card-title-row > span:first-child::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--rule);
 }
 .toggle-cluster {
   display: inline-flex;
@@ -427,12 +392,12 @@ body.eyedropper-mode, body.eyedropper-mode * {
   gap: 8px;
 }
 .toggle-label-inline {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-family: var(--font-text);
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-2);
+  letter-spacing: -0.005em;
+  text-transform: none;
+  color: var(--text-secondary);
 }
 /* ── Symbol Picker ── */
 .card-symbol {
@@ -600,10 +565,11 @@ body.eyedropper-mode, body.eyedropper-mode * {
 /* ── Brand-color apply bar ── */
 .brand-color-bar {
   margin-top: 10px;
-  padding: 8px 10px;
-  background: var(--paper);
-  border: 1px dashed var(--rule-strong);
-  font-size: 12px;
+  padding: 9px 11px;
+  background: var(--accent-wash);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
   line-height: 1.3;
 }
 .brand-color-toggle {
@@ -622,26 +588,27 @@ body.eyedropper-mode, body.eyedropper-mode * {
   display: inline-block;
   width: 14px;
   height: 14px;
-  border: 1px solid rgba(28, 24, 19, 0.25);
-  background: var(--ink);
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  background: var(--text);
   flex-shrink: 0;
 }
-.brand-color-text { color: var(--ink-2); }
+.brand-color-text { color: var(--text-secondary); }
 .brand-color-text em {
-  font-style: italic;
-  font-family: var(--font-display);
-  color: var(--ink);
-  font-weight: 500;
+  font-style: normal;
+  font-family: var(--font-text);
+  color: var(--text);
+  font-weight: 600;
 }
 
 .symbol-grid-empty {
   grid-column: 1 / -1;
   text-align: center;
-  color: var(--ink-3);
+  color: var(--text-secondary);
   padding: 28px 0;
   font-size: 13px;
-  font-style: italic;
-  font-family: var(--font-display);
+  font-style: normal;
+  font-family: var(--font-text);
 }
 
 /* ── iOS Toggle ── */
@@ -675,14 +642,18 @@ body.eyedropper-mode, body.eyedropper-mode * {
   inset: 0;
   border-radius: 15.5px;
   background: var(--paper-deep);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--border);
   transition: background 0.3s, border-color 0.3s;
   cursor: pointer;
 }
 
 .ios-toggle input:checked + .track {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.ios-toggle input:focus-visible + .track {
+  box-shadow: 0 0 0 3px var(--accent-wash);
 }
 
 .ios-toggle .thumb {
@@ -692,14 +663,10 @@ body.eyedropper-mode, body.eyedropper-mode * {
   width: 27px;
   height: 27px;
   border-radius: 50%;
-  background: var(--surface);
-  box-shadow: 0 1px 3px rgba(28,24,19,0.18), 0 0 0 0.5px rgba(28,24,19,0.1);
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18), 0 0 0 0.5px rgba(0,0,0,0.06);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
-}
-.ios-toggle input:checked ~ .thumb {
-  background: var(--accent);
-  box-shadow: 0 1px 3px rgba(28,24,19,0.28), 0 0 0 0.5px rgba(28,24,19,0.15);
 }
 
 .ios-toggle input:checked ~ .thumb {
@@ -770,24 +737,24 @@ body.eyedropper-mode, body.eyedropper-mode * {
 
 /* ── Upload Zone ── */
 .upload-zone {
-  border: 1px dashed var(--rule-strong);
-  border-radius: 0;
+  border: 1.5px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
   padding: 18px 14px;
   text-align: center;
   cursor: pointer;
-  color: var(--ink-2);
-  font-family: var(--font-body);
+  color: var(--text-secondary);
+  font-family: var(--font-text);
   font-size: 13px;
-  font-style: italic;
-  letter-spacing: 0.01em;
-  background: var(--paper);
+  font-style: normal;
+  letter-spacing: -0.005em;
+  background: transparent;
   transition: border-color 0.2s, background 0.2s, color 0.2s;
 }
 
 .upload-zone:hover {
-  border-color: var(--ink);
+  border-color: var(--accent);
   background: var(--accent-wash);
-  color: var(--ink);
+  color: var(--text);
 }
 
 .upload-zone.drag-over {
