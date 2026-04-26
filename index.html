@@ -308,8 +308,8 @@ body.eyedropper-mode, body.eyedropper-mode * {
   display: flex;
   flex-direction: column;
 }
-/* Horizontal sub-layout for the two color cards (文件夹颜色 | 文件颜色).
-   When 含文件 is off, the paper card is display:none and the folder card
+/* Horizontal sub-layout for the two color cards (Folderkleur | Bestandskleur).
+   When Met bestanden is off, the paper card is display:none and the folder card
    stretches to fill the full row automatically (flex:1 on the only child).
    flex-wrap lets them stack gracefully on very narrow viewports where
    the two cards can't both fit above their ~200px minimum. */
@@ -319,7 +319,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
   align-items: stretch;
   flex-wrap: wrap;
 }
-/* Equalize title rows so row height doesn't jump when 含文件 toggles
+/* Equalize title rows so row height doesn't jump when Met bestanden toggles
    (toggle is 31px — pin both title rows to 32px min to match). */
 .color-cards-row > .card-color > .card-title {
   min-height: 32px;
@@ -380,7 +380,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
   height: 1px;
   background: var(--rule);
 }
-/* Title row with an inline control (e.g. 含文件样式 toggle) on the right */
+/* Title row with an inline control (e.g. Met-bestanden-stijl toggle) on the right */
 .card-title-row {
   display: flex;
   align-items: center;
@@ -742,7 +742,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
   flex-shrink: 0;
   box-shadow: 0 0 0 1px rgba(0,0,0,0.1) inset;
 }
-/* White swatch for 文件颜色 "恢复默认" (outlined, since default is white) */
+/* White swatch for Bestandskleur "Standaard herstellen" (outlined, since default is white) */
 .tool-btn .dot.dot-white {
   background: #FFFFFF;
   box-shadow: 0 0 0 1px rgba(28,24,19,0.28) inset;
@@ -1231,27 +1231,27 @@ body.eyedropper-mode, body.eyedropper-mode * {
       <svg id="svgDisplayEmpty" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"></svg>
       <svg id="svgDisplayFilled" class="hidden" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"></svg>
       <img class="overlay-img" id="overlayImg" draggable="false" alt="">
-      <button class="overlay-btn btn-delete" id="overlayClose" title="移除">
+      <button class="overlay-btn btn-delete" id="overlayClose" title="Verwijderen">
         <svg viewBox="0 0 24 24" fill="none"><path d="M7 7L17 17M17 7L7 17" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
       </button>
-      <div class="overlay-btn overlay-radius" id="overlayRadiusTL" data-corner="tl" title="圆角">
+      <div class="overlay-btn overlay-radius" id="overlayRadiusTL" data-corner="tl" title="Hoek afronden">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
       </div>
-      <div class="overlay-btn overlay-radius" id="overlayRadiusTR" data-corner="tr" title="圆角">
+      <div class="overlay-btn overlay-radius" id="overlayRadiusTR" data-corner="tr" title="Hoek afronden">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
       </div>
-      <div class="overlay-btn overlay-radius" id="overlayRadiusBL" data-corner="bl" title="圆角">
+      <div class="overlay-btn overlay-radius" id="overlayRadiusBL" data-corner="bl" title="Hoek afronden">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
       </div>
-      <div class="overlay-btn overlay-radius" id="overlayRadiusBR" data-corner="br" title="圆角">
+      <div class="overlay-btn overlay-radius" id="overlayRadiusBR" data-corner="br" title="Hoek afronden">
         <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>
       </div>
-      <div class="overlay-btn overlay-resize" id="overlayResize" title="缩放">
+      <div class="overlay-btn overlay-resize" id="overlayResize" title="Schalen">
         <svg viewBox="0 0 24 24" fill="none">
           <path d="M9 5H5V9M5 5L11 11M19 15V19H15M19 19L13 13" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="overlay-btn overlay-rotate" id="overlayRotate" title="旋转">
+      <div class="overlay-btn overlay-rotate" id="overlayRotate" title="Roteren">
         <svg viewBox="0 0 24 24" fill="none">
           <path d="M19 12a7 7 0 1 1-2.05-4.95M19 5V9H15" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -1280,7 +1280,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
   <!-- Controls Column -->
   <div class="controls-col">
 
-    <!-- Color Cards Row: 文件夹颜色 (always) | 文件颜色 (only when 含文件 is on) -->
+    <!-- Color Cards Row: Folderkleur (always) | Bestandskleur (only when Met bestanden is on) -->
     <div class="color-cards-row">
       <!-- Folder Color Card -->
       <div class="card card-color">
@@ -2556,9 +2556,9 @@ styleToggle.addEventListener('change', function() {
 });
 
 /* ════════════════════════════════════════
-   File (paper) Color Picker — mirrors the 文件夹颜色 picker exactly
-   (iro.js Box + vertical hue slider, eyedropper, 恢复默认)
-   Card is only shown while 含文件 style is active.
+   File (paper) Color Picker — mirrors the Folderkleur picker exactly
+   (iro.js Box + vertical hue slider, eyedropper, Standaard herstellen)
+   Card is only shown while Met bestanden style is active.
    Picker is lazy-initialized on first reveal because iro.js needs a
    non-zero container width at construction.
    ════════════════════════════════════════ */
@@ -2598,7 +2598,7 @@ function initPaperColorPicker() {
    on the row — a picker resize changes the card's natural height,
    stretch syncs both cards, ResizeObserver fires, we re-read a new
    height, resize again, and the two cards visibly "breathe" every time
-   the 含文件 toggle flips. Width is stable across toggles, so the
+   the Met bestanden toggle flips. Width is stable across toggles, so the
    picker size stays constant and the cards settle into a single
    intrinsic height. */
 function pickerSizeFor(areaEl) {
@@ -2695,7 +2695,7 @@ function resizeColorPickers() {
 
 function updatePaperCardVisibility() {
   // The paper card itself is ALWAYS visible — only its picker+tools
-  // (`.paper-collapsible`) are shown while 含文件 is on. When off, the
+  // (`.paper-collapsible`) are shown while Met bestanden is on. When off, the
   // card shows just its title + toggle.
   const show = state.style === 'filled';
   const collapsible = paperCardEl.querySelector('.paper-collapsible');
@@ -3421,7 +3421,7 @@ $('defaultColorBtn').addEventListener('click', function() {
   drawFolderNow();
 });
 
-// Paper color tools (mirror 文件夹颜色 card)
+// Paper color tools (mirror Folderkleur card)
 $('paperEyedropperBtn').addEventListener('click', () => startEyedropper(applyPaperPickedColor));
 $('paperDefaultColorBtn').addEventListener('click', function() {
   state.paperColor = '#FEFFFF';
