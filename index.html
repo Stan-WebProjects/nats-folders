@@ -131,23 +131,25 @@ body.eyedropper-mode, body.eyedropper-mode * {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--rule);
-  color: var(--ink-2);
-  background: transparent;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  background: var(--bg-elev-strong);
   text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.15s;
 }
 .header-link:hover {
-  background: var(--ink);
-  color: var(--surface);
-  border-color: var(--ink);
+  background: var(--bg-elev-strong);
+  color: var(--text);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
 }
-.header-link:active { transform: translateY(1px); }
+.header-link:active { transform: translateY(0); }
 .header-link svg {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   display: block;
   fill: currentColor;
 }
@@ -208,7 +210,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
   display: block;
   position: absolute;
   top: 0; left: 0;
-  filter: drop-shadow(0 6px 14px rgba(28,24,19,0.14)) drop-shadow(0 2px 4px rgba(28,24,19,0.10));
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.14)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.10));
 }
 .preview-wrap > svg.hidden { display: none; }
 
@@ -251,8 +253,10 @@ body.eyedropper-mode, body.eyedropper-mode * {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--ink);
-  border: 1.5px solid var(--surface);
+  background: rgba(28, 28, 30, 0.85);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
   cursor: pointer;
   z-index: 11;
   display: none;
@@ -261,7 +265,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
   padding: 0;
   font-family: inherit;
   transition: background 0.15s, transform 0.1s, border-color 0.15s;
-  box-shadow: 0 2px 6px rgba(28,24,19,0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 .overlay-btn.show { display: flex; }
 .overlay-btn:hover {
@@ -274,13 +278,13 @@ body.eyedropper-mode, body.eyedropper-mode * {
   display: block;
 }
 /* Variant overrides */
-.overlay-btn.btn-delete:hover { background: #B33020; }
+.overlay-btn.btn-delete:hover { background: #ff3b30; }
 .overlay-btn.overlay-resize { cursor: nwse-resize; z-index: 12; }
 .overlay-btn.overlay-rotate { cursor: grab; z-index: 12; }
 .overlay-btn.overlay-rotate:active { cursor: grabbing; }
 .overlay-btn.overlay-radius { z-index: 13; }
 
-/* Snap guide lines — switched from blue to accent sienna to match palette */
+/* Snap guide lines — Apple system blue */
 .guide-h, .guide-v {
   position: absolute;
   z-index: 9;
@@ -291,14 +295,16 @@ body.eyedropper-mode, body.eyedropper-mode * {
   left: 0;
   right: 0;
   height: 1px;
-  background: rgba(143, 42, 24, 0.7);
+  background: var(--accent);
+  opacity: 0.7;
 }
 
 .guide-v {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: rgba(143, 42, 24, 0.7);
+  background: var(--accent);
+  opacity: 0.7;
 }
 
 .guide-h.show, .guide-v.show { display: block; }
@@ -816,9 +822,9 @@ body.eyedropper-mode, body.eyedropper-mode * {
   height: 14px;
   border-radius: 50%;
   background: var(--accent);
-  box-shadow: 0 1px 2px rgba(28,24,19,0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  border: 2px solid var(--surface);
+  border: 2px solid #ffffff;
 }
 
 .slider-val {
@@ -903,12 +909,12 @@ body.eyedropper-mode, body.eyedropper-mode * {
   width: 92px;
   height: 92px;
   border-radius: 50%;
-  border: 2px solid var(--ink);
+  border: 2px solid var(--text);
   overflow: hidden;
   pointer-events: none;
   z-index: 9999;
   display: none;
-  box-shadow: 0 4px 20px rgba(28,24,19,0.35), 0 0 0 4px var(--surface);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), 0 0 0 4px rgba(255, 255, 255, 0.92);
 }
 
 .loupe canvas {
@@ -978,34 +984,33 @@ body.eyedropper-mode, body.eyedropper-mode * {
 #fileInput { display: none; }
 
 /* ══════════════════════════════════════════════════
-   HEADER — compact title on the left
+   HEADER — compact, Apple-HIG sub-title bar
+   (sits below the fixed NATS brand-bar, above the app)
    ══════════════════════════════════════════════════ */
 .masthead {
   position: relative;
   max-width: 1120px;
   margin: 0 auto;
-  padding: 24px 40px 14px;
+  padding: 16px 40px 12px;
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  border-bottom: 1px solid var(--rule);
 }
 .masthead h1 {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-style: italic;
-  font-size: 38px;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--ink);
+  font-weight: 600;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: var(--text);
   margin: 0;
   flex-shrink: 0;
 }
 .masthead h1 .roman {
   font-style: normal;
-  letter-spacing: -0.035em;
 }
 .masthead h1 .accent {
   color: var(--accent);
