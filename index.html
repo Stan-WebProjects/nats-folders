@@ -88,6 +88,7 @@ body {
   height: 100vh;
   overflow: hidden;
   position: relative;
+  padding-top: 48px; /* room for fixed NATS brand-bar */
   /* Subtle accent gradient blobs — Apple-style atmospheric tint */
   background-image:
     radial-gradient(ellipse 60% 40% at 12% 0%,  var(--accent-wash), transparent 70%),
@@ -96,6 +97,82 @@ body {
 }
 
 header, .app, .toast, .loupe, .header-links { position: relative; z-index: 1; }
+
+/* ══════════════════════════════════════════════════
+   NATS brand bar — fixed top, frosted glass
+   ══════════════════════════════════════════════════ */
+.nats-brand-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--bg-elev);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  font-family: var(--font-text);
+}
+.nats-brand-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.nats-logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #5AC8FA, #0071e3);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.10), inset 0 0 0 0.5px rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+.nats-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--text);
+  white-space: nowrap;
+}
+.nats-subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.nats-brand-right a {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: background 0.18s, color 0.18s;
+}
+.nats-brand-right a:hover {
+  color: var(--text);
+  background: var(--accent-wash);
+}
+@media (max-width: 640px) {
+  .nats-subtitle { display: none; }
+  .nats-brand-bar { padding: 0 14px; }
+}
 
 body.eyedropper-mode, body.eyedropper-mode * {
   cursor: crosshair !important;
@@ -172,8 +249,8 @@ body.eyedropper-mode, body.eyedropper-mode * {
   flex-direction: row-reverse;
   gap: 28px;
   align-items: stretch;
-  /* Fill the viewport exactly — masthead + app = 100vh, no scroll */
-  height: calc(100vh - var(--masthead-h, 72px));
+  /* Fill the viewport exactly — brand-bar + masthead + app = 100vh, no scroll */
+  height: calc(100vh - 48px - var(--masthead-h, 60px));
   min-height: 0;
 }
 
@@ -191,7 +268,7 @@ body.eyedropper-mode, body.eyedropper-mode * {
 .preview-wrap {
   /* Shrinks when the viewport is too short to hold a 560² canvas plus the
      two cards below — keeps everything inside a single non-scrolling view. */
-  --preview-size: min(560px, calc(100vh - 260px));
+  --preview-size: min(560px, calc(100vh - 308px));
   width: var(--preview-size);
   height: var(--preview-size);
   border-radius: var(--radius-lg);
@@ -1134,6 +1211,18 @@ body.eyedropper-mode, body.eyedropper-mode * {
 </style>
 </head>
 <body>
+
+<!-- NATS brand bar -->
+<div class="nats-brand-bar">
+  <div class="nats-brand-left">
+    <div class="nats-logo" aria-hidden="true">N</div>
+    <span class="nats-title">Folders</span>
+    <span class="nats-subtitle">macOS Icon Studio</span>
+  </div>
+  <div class="nats-brand-right">
+    <a href="https://nats-ai.nl" target="_blank" rel="noopener">NATS</a>
+  </div>
+</div>
 
 <!-- Hidden SVG sources -->
 <div class="svg-sources">
